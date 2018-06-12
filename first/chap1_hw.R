@@ -5,6 +5,7 @@ print(getwd())
 print(search())
 library(gdata) #to read xls data
 library(treemap) #to use treemap plot... you may have to install ggplot2 & treemap and some related libraries
+library(dplyr) #to use great data modify function, like group_by
 
 #load data
 population = read.xls("2015_population.xls")
@@ -27,4 +28,11 @@ treemap(population_without_allState,
         fontcolor.labels = c("white","orange"),fontface.labels = c(2,1),bg.labels =c("transparent"),align.labels = list(c("center","center"),c("right","bottom")),
         overlap.labels = 0.5,inflate.labels = F, fontfamily.title ="HiraKakuPro-W3", fontfamily.labels = "HiraKakuPro-W3",
         fontfamily.legend = "HiraKakuPro-W3" )
-
+ 
+#collect statistical features
+group_by_state <- group_by(population_without_allState,state)
+means_per_state <- summarise(group_by_state, mean(population)) 
+stds_per_state <- summarise(group_by_state,sqrt(var(population)))
+representative_values <- merge(means_per_state,stds_per_state,by = "state") 
+names(representative_values) <- c('state','mean', 'std')
+print(representative_values)
