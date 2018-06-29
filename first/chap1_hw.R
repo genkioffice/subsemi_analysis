@@ -75,6 +75,7 @@ group_by_state$trend <- scalled_trend
 mean_trend_perState <- summarise(group_by_state,geo_mean(trend))
 variance_trend_perState <- summarise(group_by_state,geo_var(trend))
 std_trend_perState <- summarise(group_by_state,sqrt(geo_var(trend)))
+
 #concatenation
 representative_values2 <- merge(mean_trend_perState,variance_trend_perState,by = "state")
 representative_values2 <- merge(representative_values2,std_trend_perState,by="state")

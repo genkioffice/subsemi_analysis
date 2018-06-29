@@ -19,5 +19,6 @@ libor <-read_excel("csv")
 
 cvdata = read.csv("cv.csv")
 #var returns 分散共分散行列
-population = gdata::read.xls('2015_population.xls')
+str(cvdata) #return structure
+
 
